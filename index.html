@@ -18,7 +18,7 @@ hello<!-- Load Stripe.js on your website. -->
   var stripe = Stripe('pk_live_CSRVJ6UHBgTvDjpqM6dIEafS');
 
   var checkoutButton = document.getElementById('checkout-button-sku_HkX3103myDeigm');
-  checkoutButton.addEventListener('load', function () {
+  window.addEventListener('load', function () {
     // When the customer clicks on the button, redirect
     // them to Checkout.
     stripe.redirectToCheckout({
