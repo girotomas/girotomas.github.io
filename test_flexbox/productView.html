@@ -1,0 +1,86 @@
+<style>
+.smallPic {
+	transition: transform .2s;
+	height:100px;
+	width:100px;
+	object-fit:cover;
+	margin:20px;
+}
+button {
+	padding:10px;
+	background-color:white;
+	border: 1px;
+	border-radius:4px;
+	border-style:solid;
+}
+button:hover {
+	transform: scale(1.1);
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+</style>
+
+<body style='margin:0px;font-family:Arial'>
+	<div style='box-shadow:0 4px 8px 0 rgba(0,0,0,0.1);height:50px;width:100%;display:flex;justify-content:space-between'>
+		<button style='margin:10px' onclick='goTo("index.html")'> Home </button>
+		<button style='margin:10px' onclick='toCheckout();'>Checkout</button>
+	</div>
+	<div id='parentDiv' style='display:flex;'>
+		<div id='imagesColumn' style='display:flex;flex-direction:column;' >
+		</div>
+			<div style='display:flex;margin:20px;justify-content:center'>
+				<img id='bigImage' style='object-fit:cover;width:600px;height:600px'/>
+				<div id='productInfo' style='width:300px;height:500px;margin:10px'></div>
+				<script src='data.js' > </script>
+<script src='parseGet.js'>
+</script>
+
+				<script>
+
+var product = data.product;
+					var imagesColumn = document.getElementById('imagesColumn');
+document.getElementById('bigImage').src = `./${product.pictures[0]}`;
+for (var pic of product.pictures){
+	imagesColumn.innerHTML += `
+		<img src='./${pic}' onmouseover='var e = document.getElementById("bigImage"); e.src = "./${pic}";' class='smallPic' />
+	`
+}
+var productInfo = document.getElementById('productInfo');
+productInfo.innerHTML = `
+	<p>Name: ${product.name}</p>
+	</br>
+	<p>Price: ${product.price}</p>
+	</br>
+	<p>Size:
+		<select id="cars">
+			<option value="volvo">S</option>
+			<option value="saab">M</option>
+			<option value="opel">L</option>
+			<option value="audi">XL</option>
+		</select>
+	</p>
+	<p>Items in cart:
+	${data.cart && data.cart[data.product.id] || 0}
+	</p>
+	</br>
+	<button onclick='onAddToCart()'>Add to cart </button>
+	</br>
+	`;
+function onAddToCart(){
+	var p = data.product;
+	data.cart[p.id] = (data.cart[p.id] || 0 ) + 1;
+	console.log(data);
+	reload();
+	//var href = window.location.href;
+	//window.location.href =  `./checkout.html?cart=${product.id}`;
+}
+function toCheckout(){
+	var href = window.location.href;
+	window.location.href = `./checkout.html?` + encode(data);
+}
+
+				</script>
+
+
+			</div>
+	</div>
+</body>

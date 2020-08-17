@@ -1,0 +1,57 @@
+<style>
+
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<body style='display:flex;flex-direction:column;margin:0'>
+	<div style='z-index:1;position:fixed;background-color:white;box-shadow:0 4px 8px 0 rgba(0,0,0,0.1);height:50px;width:100%;display:flex;justify-content:flex-end'>
+		<button style='margin:10px' onclick='goTo("checkout.html");'>Checkout</button>
+	</div>
+	<div style='height:50px'>
+	</div>
+	<div style='display:flex;flex-wrap:wrap' id='parentDiv'>
+		<style>
+.box {
+	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	margin:5px;
+	height:300px;
+	width:200px;
+	background-color:white;
+	transition: transform .2s;
+}
+.box:hover{
+	transform: scale(1.03);
+}
+p {
+	font-family:Roboto;
+}
+img {
+	margin:5px;
+	width:190px;
+	height:190px;
+	background-color:white;
+	object-fit:cover;
+}
+		</style>
+		<script src='parseGet.js'> </script>
+		<script src='data.js'> </script>
+		<script>
+			function onProductClick(productId){
+				console.log(productId);
+				data.product = websiteData.products[productId];
+				goTo('productView.html');
+			}
+			for (const [pId, p] of Object.entries(websiteData.products)){
+				var div = document.createElement('div');
+				var parentDiv = document.getElementById('parentDiv');
+				console.log(p);
+				div.innerHTML = `
+			<div class='box' onclick='onProductClick(${p.id})'>
+				<img src='${p.image}' />
+					<p style='margin:5px;height:90px;text-overflow:	"...";overflow:hidden'>${p.name}</br> ${p.price}</p>
+			</div>`;
+				parentDiv.appendChild(div);
+			}
+		</script>
+	</div>
+</body>
+	<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300&display=swap" rel="stylesheet">
