@@ -3,7 +3,7 @@
 	transition: transform .2s;
 	height:100px;
 	width:100px;
-	object-fit:cover;
+	object-fit:contain;
 	margin:20px;
 }
 button {
@@ -28,7 +28,7 @@ button:hover {
 		<div id='imagesColumn' style='display:flex;flex-direction:column;' >
 		</div>
 			<div style='display:flex;margin:20px;justify-content:center'>
-				<img id='bigImage' style='object-fit:cover;width:600px;height:600px'/>
+				<img id='bigImage' style='object-fit:contain;width:600px;height:600px'/>
 				<div id='productInfo' style='width:300px;height:500px;margin:10px'></div>
 				<script src='data.js' > </script>
 <script src='parseGet.js'>
@@ -38,10 +38,10 @@ button:hover {
 
 var product = data.product;
 					var imagesColumn = document.getElementById('imagesColumn');
-document.getElementById('bigImage').src = `./${product.pictures[0]}`;
+document.getElementById('bigImage').src = `${product.pictures[0]}`;
 for (var pic of product.pictures){
 	imagesColumn.innerHTML += `
-		<img src='./${pic}' onmouseover='var e = document.getElementById("bigImage"); e.src = "./${pic}";' class='smallPic' />
+		<img src='${pic}' onmouseover='var e = document.getElementById("bigImage"); e.src = "${pic}";' class='smallPic' />
 	`
 }
 var productInfo = document.getElementById('productInfo');
@@ -59,19 +59,27 @@ productInfo.innerHTML = `
 		</select>
 	</p>
 	<p>Items in cart:
+	<button onclick='onAddToCart()'>+</button>
 	${data.cart && data.cart[data.product.id] || 0}
+	<button onclick='removeFromCart()'>-</button>
 	</p>
 	</br>
-	<button onclick='onAddToCart()'>Add to cart </button>
 	</br>
+</br>
 	`;
 function onAddToCart(){
 	var p = data.product;
 	data.cart[p.id] = (data.cart[p.id] || 0 ) + 1;
 	console.log(data);
 	reload();
-	//var href = window.location.href;
-	//window.location.href =  `./checkout.html?cart=${product.id}`;
+}
+function removeFromCart(){
+	var p = data.product;
+	if (data.cart[p.id] == 0 || data.cart[p.id] == undefined ){
+		return
+	}
+	data.cart[p.id] = (data.cart[p.id] || 0) - 1;
+	reload();
 }
 function toCheckout(){
 	var href = window.location.href;

@@ -37,6 +37,10 @@ p {
 	background-color:white;
 
 }
+.cartItem:hover{
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.1);
+	transform: scale(1.04);
+}
 input {
 	border:0px;
 	padding:5px;
@@ -63,23 +67,42 @@ input {
 	</div>
 	<div id='content' style='display:flex;flex-wrap:wrap'>
 	<div class='shade' id='cartItemsContainer' style='padding:50px;display:flex;flex-direction:column;flex-grow:1;justify-content:right;'>
-<script src='parseGet.js'>
+		<script src='data.js'> </script>
+		<script src='parseGet.js'>
 </script>
 		<script>
+function goToProduct(id){
+	data.product = websiteData.products[id];
+	goTo('productView.html');
+}
 			var href = window.location.href;
 //var cart = parseCart(href);
 var cart = data.cart;
 var cartItemsContainer = document.getElementById('cartItemsContainer');
 var innerHTML = cartItemsContainer.innerHTML;
-innerHTML += '<p>List of Items:</p>';
+innerHTML += '<p>Shopping cart:</p>';
+var total = 0;
 for (const [itemId, qty] of Object.entries(cart)){
+	if(qty ==0){
+		continue
+	}
+	var product = websiteData.products[itemId];
+	total += product.price * qty;
 	innerHTML = innerHTML + `
-	<div class='cartItem' >
-		<p>Id: ${itemId}</p>
+	<div class='cartItem' style='display:flex;justify-content:space-between'
+	onclick='goToProduct(${product.id});'
+	>
+		<div>
+		<p>${product.name} </p>
+		<p>${product.price*qty} EUR</p>
 		<p>Quantity: ${qty}</p>
+		</div>
+		<img src='${product.image}' style='width:70px;height:70px;margin:20px;object-fit:cover;border-radius:4px'/>
 	</div>
 	`;
 }
+total = Math.round(total * 100) / 100;
+innerHTML += `<p>Total: <b>${total} EUR</b></p>`
 cartItemsContainer.innerHTML = innerHTML;
 		</script>
 	</div>
@@ -113,5 +136,11 @@ cartItemsContainer.innerHTML = innerHTML;
 <script src='paypal.js'>
 </script>
 	<script>
-		launchPaypal('1.1');
+		var sum = 0;
+		for (const [itemId, qty] of Object.entries(data.cart)){
+			var product = websiteData.products[itemId];
+			sum += product.price * qty;
+		}
+		sum = Math.round(100 * sum)/100;
+		launchPaypal(''+sum);
 	</script>

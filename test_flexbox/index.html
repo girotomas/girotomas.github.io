@@ -8,10 +8,11 @@
 	</div>
 	<div style='height:50px'>
 	</div>
-	<div style='display:flex;flex-wrap:wrap' id='parentDiv'>
+	<div style='display:flex;flex-wrap:wrap;justify-content:center' id='parentDiv'>
 		<style>
 .box {
-	box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
+	border-radius:4px;
+	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
 	margin:5px;
 	height:300px;
 	width:200px;
@@ -19,17 +20,26 @@
 	transition: transform .2s;
 }
 .box:hover{
-	transform: scale(1.03);
+	transform: scale(1.02);
+	box-shadow: 0 8px 12px 0 rgba(0,0,0,0.2);
 }
 p {
 	font-family:Roboto;
+	font-size:15px;
+	text-overflow:ellipsis;
+	max-height:40px;
 }
 img {
 	margin:5px;
 	width:190px;
 	height:190px;
 	background-color:white;
-	object-fit:cover;
+	object-fit:contain;
+	transition: transform .2s;
+}
+img:hover{
+	transform:scale(1.5);
+	overflow:hidden;
 }
 		</style>
 		<script src='parseGet.js'> </script>
@@ -47,7 +57,8 @@ img {
 				div.innerHTML = `
 			<div class='box' onclick='onProductClick(${p.id})'>
 				<img src='${p.image}' />
-					<p style='margin:5px;height:90px;text-overflow:	"...";overflow:hidden'>${p.name}</br> ${p.price}</p>
+					<p style='margin:3px'>${p.price} EUR</p>
+					<p style='margin:5px;height:65px;text-overflow:	"...";overflow:hidden'>${p.name}</p>
 			</div>`;
 				parentDiv.appendChild(div);
 			}
