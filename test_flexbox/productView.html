@@ -7,7 +7,6 @@
 	margin:20px;
 }
 button {
-	padding:10px;
 	background-color:white;
 	border: 1px;
 	border-radius:4px;
@@ -22,6 +21,8 @@ button:hover {
 <body style='margin:0px;font-family:Arial'>
 	<div style='box-shadow:0 4px 8px 0 rgba(0,0,0,0.1);height:50px;width:100%;display:flex;justify-content:space-between'>
 		<button style='margin:10px' onclick='goTo("index.html")'> Home </button>
+		<div id='logoDiv'></div>
+		<script src='logo.js'></script>
 		<button style='margin:10px' onclick='toCheckout();'>Checkout</button>
 	</div>
 	<div id='parentDiv' style='display:flex;'>
