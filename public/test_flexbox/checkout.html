@@ -48,7 +48,7 @@ input {
 .paypalStyle {
     box-sizing: border-box;
     font-size: 15px;
-    width: 100%;
+    width: 80vw;
     height: 46px;
     border-style: solid;
     border-radius: 4px;
@@ -56,6 +56,19 @@ input {
     border-color: rgba(0,0,0,0.2);
     outline: 0px;
     width:300px;
+}
+#cartItemsContainer {
+ width: 90vw;
+ display:flex;
+ flex-direction:column;
+ flex-grow:1;
+ justify-content:right;
+}
+#checkoutFormContainer {
+	width: 90vw;
+}
+#form{
+	padding: 10px;
 }
 	</style>
 	<link rel='stylesheet' type='text/css' href='./buttons.css'></link>
@@ -67,7 +80,7 @@ input {
 	<div id='placeholder' style='height:0px'>
 	</div>
 	<div id='content' style='display:flex;flex-wrap:wrap'>
-	<div class='shade' id='cartItemsContainer' style='padding:50px;display:flex;flex-direction:column;flex-grow:1;justify-content:right;'>
+	<div class='shade' id='cartItemsContainer'>
 		<script src='data.js'> </script>
 		<script src='parseGet.js'>
 </script>
@@ -108,7 +121,7 @@ cartItemsContainer.innerHTML = innerHTML;
 		</script>
 	</div>
 	<div id='checkoutFormContainer' style='flex-grow:1'>
-		<div id='form' style='margin:50px'>
+		<div id='form' >
 			<p>Address:</p>
 			<textarea class='paypalStyle' style='height:100px' cols="20" rows="5"></textarea></br>
 			<p>Email:</p>
@@ -122,7 +135,7 @@ cartItemsContainer.innerHTML = innerHTML;
 			</p>
 			<select  style='width:300px'>
 				<option>Urgent delivery (2 days) 16,45 Eur</option>
-				<option>Normal Mail (2 weeks) 5,95 Eur </option>
+				<option>Non urgent delivery (2 weeks) 5,95 Eur </option>
 			</select>
 			</br>
 			<p> Payment: 

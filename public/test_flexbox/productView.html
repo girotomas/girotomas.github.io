@@ -1,0 +1,116 @@
+<style>
+.smallPic {
+	transition: transform .2s;
+	height:90vw;
+	width:90vw;
+	object-fit:contain;
+	margin:20px;
+}
+button {
+	background-color:white;
+	border: 1px;
+	border-radius:4px;
+	border-style:solid;
+}
+button:hover {
+	transform: scale(1.1);
+	box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+}
+#parentDiv {
+	display: flex;
+	flex-direction: column;
+}
+#imagesColumn { 
+	display:flex;
+	flex-direction:column;
+	width: 90vw;
+}
+body {
+	margin:0px;font-family:Arial;
+	font-size: '20px';
+}
+#productInfo {
+	width:90vw;
+	height:500px;
+}
+#infoBox {
+	 display:flex;
+	 width:90vh;
+	 padding:10px;
+}
+</style>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<body>
+	<div style='box-shadow:0 4px 8px 0 rgba(0,0,0,0.1);height:50px;width:100%;display:flex;justify-content:space-between'>
+		<button style='margin:10px' onclick='goTo("index.html")'> Home </button>
+		<div id='logoDiv'></div>
+		<script src='logo.js'></script>
+		<button style='margin:10px; font-size: 10px;' onclick='toCheckout();'>Checkout</button>
+	</div>
+	<div id='parentDiv' style='display: "flex"; flex-direction: "column";'>
+		<div id='imagesColumn' >
+		</div>
+			<div id="infoBox"'>
+				<div id='productInfo'></div>
+				<script src='data.js' > </script>
+<script src='parseGet.js'>
+</script>
+
+				<script>
+
+					var product = data.product;
+					var imagesColumn = document.getElementById('imagesColumn');
+					var productInfo = document.getElementById('productInfo');
+					for (var pic of product.pictures){
+						imagesColumn.innerHTML += `
+							<img src='${pic}' class='smallPic' onerror="this.onerror=null; this.hidden='true'" />
+						`
+					}
+					productInfo.innerHTML = `
+						<p>Name: ${product.name}</p>
+						</br>
+						<p>Price: ${product.price}</p>
+						</br>
+						<p>Size:
+							<select id="cars">
+								<option value="volvo">S</option>
+								<option value="saab">M</option>
+								<option value="opel">L</option>
+								<option value="audi">XL</option>
+							</select>
+						</p>
+						<p>Items in cart:
+						<button onclick='onAddToCart()'>+</button>
+						${data.cart && data.cart[data.product.id] || 0}
+						<button onclick='removeFromCart()'>-</button>
+						</p>
+						</br>
+						</br>
+					</br>
+						`;
+					function onAddToCart(){
+						var p = data.product;
+						data.cart[p.id] = (data.cart[p.id] || 0 ) + 1;
+						console.log(data);
+						reload();
+					}
+					function removeFromCart(){
+						var p = data.product;
+						if (data.cart[p.id] == 0 || data.cart[p.id] == undefined ){
+							return
+						}
+						data.cart[p.id] = (data.cart[p.id] || 0) - 1;
+						reload();
+					}
+					function toCheckout(){
+						var href = window.location.href;
+						window.location.href = `./checkout.html?` + encode(data);
+					}
+
+				</script>
+
+
+			</div>
+	</div>
+</body>

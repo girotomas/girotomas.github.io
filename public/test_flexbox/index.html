@@ -4,7 +4,7 @@
 		<div id='logoDiv'> </div>
 <script src='logo.js'>
 </script>
-		<button style='margin:10px' onclick='goTo("checkout.html");'>Checkout</button>
+		<button style='margin:10px; font-size: 10px;' onclick='goTo("checkout.html");'>Checkout</button>
 	</div>
 	<div style='height:50px'>
 	</div>
@@ -14,8 +14,8 @@
 	border-radius:4px;
 	box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2);
 	margin:5px;
-	height:300px;
-	width:200px;
+	height:120vw;
+	width:90vw;
 	background-color:white;
 	transition: transform .2s;
 }
@@ -31,8 +31,8 @@ p {
 }
 img {
 	margin:5px;
-	width:190px;
-	height:190px;
+	width:80vw;
+	height:80vw;
 	background-color:white;
 	object-fit:contain;
 	transition: transform .2s;
@@ -56,10 +56,10 @@ img:hover{
 				var parentDiv = document.getElementById('parentDiv');
 				console.log(p);
 				div.innerHTML = `
-			<div class='box' onclick='onProductClick(${p.id})'>
+			<div class='box' onclick='onProductClick(${p.id})' >
 				<img src='${p.image}' />
 					<p style='margin:3px'>${p.price} EUR</p>
-					<p style='margin:5px;height:65px;text-overflow:	"...";overflow:hidden'>${p.name}</p>
+					<p style='margin:5px'>${p.name}</p>
 			</div>`;
 				parentDiv.appendChild(div);
 			}
